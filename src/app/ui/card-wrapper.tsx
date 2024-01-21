@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 
-type CardWrapper = { title: string; children: React.ReactNode; action?: React.ReactNode };
+import { iCardWrapper } from "@/app/lib/definitions";
 
-export default function CardWrapper({ title, children, action }: CardWrapper) {
+export default function CardWrapper({ title, children, action }: iCardWrapper) {
   return (
     <Fragment>
       <div className="flex flex-col rounded-xl p-3 border">

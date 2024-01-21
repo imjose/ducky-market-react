@@ -17,7 +17,7 @@ function ProductStepper({ id, selectedProducts, setSelectedProducts }: ProductSt
 
   return (
     <div className="flex flex-col justify-center items-center h-full px-4">
-      <span className="text-md">quantity</span>
+      <span className="text-md">Quantity</span>
       <div className="flex flex-row justify-between items-center w-14">
         <button className="font-bold" onClick={onDecrement}>
           -
