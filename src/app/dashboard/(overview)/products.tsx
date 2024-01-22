@@ -48,9 +48,11 @@ export default function Products({
             <li
               key={id}
               onClick={() => selectProduct(id)}
-              className={clsx("cursor-pointer rounded-lg hover:bg-slate-100", {
-                "text-white bg-blue-600 hover:bg-blue-500 cursor-default": Object.hasOwn(selectedProducts, id),
-              })}
+              className={clsx(
+                "cursor-pointer rounded-lg ",
+                { "hover:bg-slate-100": !Object.hasOwn(selectedProducts, id) },
+                { "text-white bg-blue-600 hover:bg-blue-500 cursor-default": Object.hasOwn(selectedProducts, id) }
+              )}
             >
               <Product title={title} description={description}>
                 <div className={clsx({ "hidden": !Object.hasOwn(selectedProducts, id) })}>
