@@ -8,7 +8,7 @@ type ProductStepperProps = {
 
 function ProductStepper({ id, selectedProducts, setSelectedProducts }: ProductStepperProps) {
   function onDecrement() {
-    return setSelectedProducts(({ [id]: prop, ...prev }) => ({ ...prev, ...(prop - 1 > 0 ? { [id]: prop - 1 } : {}) }));
+    return setSelectedProducts(({ [id]: value, ...prev }) => ({ ...prev, ...(value - 1 > 0 ? { [id]: value - 1 } : {}) }));
   }
 
   function onIncrement() {
