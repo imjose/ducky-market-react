@@ -2,7 +2,7 @@ import React from "react";
 
 import { iProduct } from "@/app/lib/definitions";
 
-export default function Product({ title, description, children }: iProduct) {
+export default function Product({ title, description, children }: Partial<iProduct>) {
   return (
     <div className="w-full flex p-2 gap-2">
       <div className="w-12 h-12 flex-shrink-0 bg-slate-200 rounded-xl"></div>
