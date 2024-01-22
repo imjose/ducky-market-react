@@ -8,7 +8,7 @@ export interface iCardWrapper extends _framework {
 }
 
 export interface iProduct extends _framework {
-  id?: string;
+  id: number;
   title: string;
   // stock: number;
   description: string;

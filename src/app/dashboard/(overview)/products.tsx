@@ -47,7 +47,7 @@ export default function Products({
           <>
             <li
               key={id}
-              onClick={() => selectProduct(id)}
+              onClick={() => selectProduct(id.toString())}
               className={clsx(
                 "cursor-pointer rounded-lg ",
                 { "hover:bg-slate-100": !Object.hasOwn(selectedProducts, id) },
@@ -56,7 +56,7 @@ export default function Products({
             >
               <Product title={title} description={description}>
                 <div className={clsx({ "hidden": !Object.hasOwn(selectedProducts, id) })}>
-                  <ProductStepper id={id} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
+                  <ProductStepper id={id.toString()} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
                 </div>
               </Product>
             </li>
