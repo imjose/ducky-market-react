@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
-import { DevicePhoneMobileIcon, ComputerDesktopIcon, UserIcon, HomeIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 
 import { iProduct } from "@/app/lib/definitions";
+import { ComputerDesktopIcon, DevicePhoneMobileIcon, HomeIcon, ShoppingBagIcon, UserIcon } from "@heroicons/react/24/outline";
 
 export default function Product({ title, description, category, children }: Partial<iProduct>) {
   let icon;

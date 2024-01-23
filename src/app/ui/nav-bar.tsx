@@ -13,8 +13,6 @@ const links = [
 ];
 
 export default function NavBar({ name }: { name: string }) {
-  const userName = "Lorraine";
-
   return (
     <div className="h-10 flex flex-row justify-between items-center py-1 px-5 shadow-md rounded-xl bg-blue-600 text-white">
       <div className="flex flex-row text-sm">

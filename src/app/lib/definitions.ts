@@ -15,3 +15,10 @@ export interface iProduct extends _framework {
   description: string;
   category?: string;
 }
+
+export interface iTransaction {
+  id: number;
+  createdAt: string | Date;
+  products: Object;
+  value: number;
+}

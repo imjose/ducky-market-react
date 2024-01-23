@@ -1,31 +1,33 @@
-import React from "react";
+"use server";
 
-import { fetchLastTransaction, fetchMostExpensiveTransactions, fetchProducts, postTransaction } from "@/app/lib/data";
-import CardWrapper from "@/app/ui/card-wrapper";
+import { auth } from "@/app/lib/auth";
+import { fetchLastTransaction, fetchMostExpensiveTransaction, fetchProducts, postTransaction } from "@/app/lib/data";
+import NavBar from "@/app/ui/nav-bar";
 
-import Products from "./products";
+import Dashboard from "./dashboard/dashboard";
 
 export default async function Page() {
-  let [products, lastTransaction, mostExpensiveTransaction] = await Promise.all([
+  const session = await auth();
+
+  let [[products, productMap], lastTransaction, mostExpensiveTransaction] = await Promise.all([
     fetchProducts(),
     fetchLastTransaction(),
-    fetchMostExpensiveTransactions(),
+    fetchMostExpensiveTransaction(),
   ]);
 
   return (
-    <div className="w-full flex flex-row flex-wrap">
-      <div className="w-full md:w-2/3 p-2">
-        <Products products={products} submitTransaction={postTransaction} />
+    <main className="p-5 max-w-5xl mx-auto">
+      <div className="mb-4 px-2">
+        <NavBar name={session?.user?.name ?? "User"} />
       </div>
-      <div className="w-full md:w-1/3 p-2 flex flex-col gap-4">
-        <CardWrapper title="Last Transaction">
-          <div className="p-3">{JSON.stringify(lastTransaction)}</div>
-        </CardWrapper>
-
-        <CardWrapper title="Most Exprensive Transaction">
-          <div className="p-3">{JSON.stringify(mostExpensiveTransaction)}</div>
-        </CardWrapper>
-      </div>
-    </div>
+      <Dashboard
+        user={session?.user}
+        products={products}
+        productMap={productMap}
+        lastTransaction={lastTransaction}
+        mostExpensiveTransaction={mostExpensiveTransaction}
+        postTransaction={postTransaction}
+      />
+    </main>
   );
 }
