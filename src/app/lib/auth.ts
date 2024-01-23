@@ -1,12 +1,11 @@
-import NextAuth from "next-auth";
-import { z } from "zod";
-import prisma from "./db";
 import bcryptjs from "bcryptjs";
-
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { z } from "zod";
 
 import { authConfig } from "./auth.config";
+import prisma from "./db";
 
 function getUser(email: string): Promise<any> {
   return prisma.user.findUnique({

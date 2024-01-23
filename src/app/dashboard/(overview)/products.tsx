@@ -1,28 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
 import clsx from "clsx";
+import React, { useEffect, useRef, useState } from "react";
 
+import { iProduct } from "@/app/lib/definitions";
 import CardWrapper from "@/app/ui/card-wrapper";
 import Product from "@/app/ui/product";
 import ProductStepper from "@/app/ui/product-stepper";
-
-import { iProduct } from "@/app/lib/definitions";
 
 export default function Products({
   products,
   submitTransaction,
 }: {
   products: iProduct[];
-  submitTransaction: (selectedProducts: { [key: string]: number }) => void;
+  submitTransaction: (selectedProducts: { [key: string]: number }, totalAmount: number) => void;
 }) {
   const [selectedProducts, setSelectedProducts] = useState<{ [key: string]: number }>({});
+
+  const productsMap = useRef<Map<string, number>>(new Map(products.map(_p => [_p.id.toString(), _p.price])));
+  const totalAmount = useRef<number>(0);
+
+  useEffect(() => {
+    totalAmount.current = Object.entries(selectedProducts).reduce(
+      (prev, [id, quantity]) => (prev += (productsMap.current.get(id) ?? 0) * quantity),
+      0
+    );
+  }, [selectedProducts]);
 
   const addTransaction = (
     <button
       type="button"
       onClick={() => {
-        submitTransaction(selectedProducts);
+        submitTransaction(selectedProducts, totalAmount.current);
         setSelectedProducts({});
       }}
       className={clsx(

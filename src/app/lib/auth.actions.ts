@@ -1,14 +1,20 @@
-import { signIn } from "./auth";
+"use server";
+
+import { signIn, signOut } from "./auth";
 import { AuthError } from "next-auth";
 import bcryptjs from "bcryptjs";
 
 import { z } from "zod";
 import prisma from "./db";
 
-export class SignUpUserError extends Error {
+class SignUpUserError extends Error {
   constructor(message: string) {
     super(message);
   }
+}
+
+export async function userSignOut() {
+  await signOut();
 }
 
 async function generateUser(formData: FormData) {
