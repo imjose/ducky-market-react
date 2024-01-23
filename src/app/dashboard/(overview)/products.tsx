@@ -10,22 +10,22 @@ import ProductStepper from "@/app/ui/product-stepper";
 
 export default function Products({
   products,
+  productMap,
   submitTransaction,
 }: {
   products: iProduct[];
+  productMap: Map<string, iProduct>;
   submitTransaction: (selectedProducts: { [key: string]: number }, totalAmount: number) => void;
 }) {
-  const [selectedProducts, setSelectedProducts] = useState<{ [key: string]: number }>({});
-
-  const productsMap = useRef<Map<string, number>>(new Map(products.map(_p => [_p.id.toString(), _p.price])));
   const totalAmount = useRef<number>(0);
+  const [selectedProducts, setSelectedProducts] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
     totalAmount.current = Object.entries(selectedProducts).reduce(
-      (prev, [id, quantity]) => (prev += (productsMap.current.get(id) ?? 0) * quantity),
+      (prev, [id, quantity]) => (prev += (productMap.get(id)?.price ?? 0) * quantity),
       0
     );
-  }, [selectedProducts]);
+  }, [selectedProducts, productMap]);
 
   const addTransaction = (
     <button
@@ -61,7 +61,6 @@ export default function Products({
                 "cursor-pointer rounded-lg",
                 { "hover:bg-slate-200 text-slate-600": !Object.hasOwn(selectedProducts, id) },
                 { "text-white bg-violet-600 hover:bg-violet-500 cursor-default": Object.hasOwn(selectedProducts, id) }
-                // { "text-white bg-blue-600 hover:bg-blue-500 cursor-default": Object.hasOwn(selectedProducts, id) }
               )}
             >
               <Product title={title} description={description} category={category}>

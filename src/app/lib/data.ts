@@ -4,10 +4,10 @@ import { auth } from "./auth";
 import prisma from "./db";
 import { iProduct } from "./definitions";
 
-export async function fetchProducts(): Promise<iProduct[]> {
+export async function fetchProducts(): Promise<[iProduct[], Map<string, iProduct>]> {
   return fetch("https://dummyjson.com/products")
     .then(res => res.json())
-    .then(res => res.products);
+    .then(res => [res.products, new Map<string, iProduct>(res.products.map((_p: iProduct) => [_p.id.toString(), _p]))]);
 }
 
 export async function fetchLastTransaction() {
