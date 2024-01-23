@@ -10,17 +10,17 @@ export async function fetchProducts(): Promise<[iProduct[], Map<string, iProduct
     .then(res => [res.products, new Map<string, iProduct>(res.products.map((_p: iProduct) => [_p.id.toString(), _p]))]);
 }
 
-export async function fetchLastTransaction() {
+export async function fetchLastTransaction(): Promise<iTransaction | undefined> {
   const session = await auth();
 
-  if (!session?.user?.email) return [];
+  if (!session?.user?.email) return;
 
   return prisma.user
     .findUnique({
       where: { email: session.user.email },
       include: { Transaction: { orderBy: { createdAt: "desc" }, take: 1 } },
     })
-    .then(val => val?.Transaction?.[0]);
+    .then(val => val?.Transaction?.[0] as iTransaction);
 }
 
 export async function fetchTransactions() {
@@ -36,17 +36,17 @@ export async function fetchTransactions() {
     .then(val => val?.Transaction ?? []);
 }
 
-export async function fetchMostExpensiveTransactions() {
+export async function fetchMostExpensiveTransaction(): Promise<iTransaction | undefined> {
   const session = await auth();
 
-  if (!session?.user?.email) return [];
+  if (!session?.user?.email) return;
 
   return prisma.user
     .findUnique({
       where: { email: session.user.email },
       include: { Transaction: { orderBy: { value: "desc" }, take: 1 } },
     })
-    .then(val => val?.Transaction?.[0]);
+    .then(val => val?.Transaction?.[0] as iTransaction);
 }
 
 export async function postTransaction(products: { [key: string]: number }, totalAmount: number): Promise<iTransaction | undefined> {
