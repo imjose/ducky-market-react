@@ -19,15 +19,15 @@ export default async function Page() {
       <div className="w-full md:w-2/3 p-2">
         <Products products={products} submitTransaction={onSubmitTransaction} />
       </div>
-      <div className="w-full md:w-1/3 p-2">
-        <CardWrapper title="Last Transactions">
+      <div className="w-full md:w-1/3 p-2 flex flex-col gap-4">
+        <CardWrapper title="Last Transaction">
+          <div></div>
+        </CardWrapper>
+
+        <CardWrapper title="Most Exprensive Transaction">
           <div></div>
         </CardWrapper>
       </div>
     </div>
   );
 }
-
-// **dockets
-// last transaction
-// most expensive transaction

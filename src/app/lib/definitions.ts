@@ -12,4 +12,5 @@ export interface iProduct extends _framework {
   title: string;
   // stock: number;
   description: string;
+  category?: string;
 }

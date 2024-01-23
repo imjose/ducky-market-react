@@ -30,7 +30,7 @@ export default function Products({
         { "hidden": !Object.keys(selectedProducts).length }
       )}
     >
-      <span>Add Transaction</span>
+      <span>Submit Transaction</span>
     </button>
   );
 
@@ -43,18 +43,19 @@ export default function Products({
   return (
     <CardWrapper title="Products" action={addTransaction}>
       <ul className="overflow-auto max-h-[560px]">
-        {products.map(({ id, title, description }, index) => (
+        {products.map(({ id, title, description, category }, index) => (
           <>
             <li
               key={id}
               onClick={() => selectProduct(id.toString())}
               className={clsx(
-                "cursor-pointer rounded-lg ",
-                { "hover:bg-slate-100": !Object.hasOwn(selectedProducts, id) },
-                { "text-white bg-blue-600 hover:bg-blue-500 cursor-default": Object.hasOwn(selectedProducts, id) }
+                "cursor-pointer rounded-lg",
+                { "hover:bg-slate-200 text-slate-600": !Object.hasOwn(selectedProducts, id) },
+                { "text-white bg-violet-600 hover:bg-violet-500 cursor-default": Object.hasOwn(selectedProducts, id) }
+                // { "text-white bg-blue-600 hover:bg-blue-500 cursor-default": Object.hasOwn(selectedProducts, id) }
               )}
             >
-              <Product title={title} description={description}>
+              <Product title={title} description={description} category={category}>
                 <div className={clsx({ "hidden": !Object.hasOwn(selectedProducts, id) })}>
                   <ProductStepper id={id.toString()} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
                 </div>
